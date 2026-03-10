@@ -39,13 +39,6 @@ const Style = StyleSheet.create({
         gap: 10,
         marginBottom: 150
     },
-
-
-    graficoTempTemporario: {
-        backgroundColor: "#7a60fffb",
-        height: 150,
-        width: "85%",
-    }
 })
 
 export default Style;

@@ -3,11 +3,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import GlobalStyle from "../../styles/GlobalStyle";
 import Style from "./Style";
 import { useState } from "react";
+import { LineChart } from "react-native-gifted-charts";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 export default function Monitoramento_telemetria() {
     const [ temp, setTemp ] = useState(82);
+
+    const tempData = [
+        { value: 50 },
+        { value: 80 },
+        { value: 65 },
+        { value: 90 },
+        { value: 70 },
+    ];
 
     return (
         <SafeAreaView style={GlobalStyle.mainContainer}>
@@ -40,7 +49,13 @@ export default function Monitoramento_telemetria() {
             <View style={Style.viewRegistroTemp}>
                 <Text style={Style.title}>Registro de temperaturas</Text>
 
-                <View style={Style.graficoTempTemporario}></View>
+                {/* <View style={Style.graficoTempTemporario}></View> */}
+                <LineChart 
+                    data={tempData}
+                    thickness={3}
+                    color="blue"
+                    hideDataPoints={false}
+                />
             </View>
         </SafeAreaView>
     )
