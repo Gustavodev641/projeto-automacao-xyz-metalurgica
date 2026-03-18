@@ -26,6 +26,11 @@ export const getGlobalStyle = (fonteGrande:boolean) => {
             fontWeight: "regular",
             textAlign: "center"
         },
+        TextGrandao: {
+            fontSize: 50 * multiplicadorFonte,
+            fontWeight: "bold",
+            textAlign: "center"
+        }
     })
 }
 

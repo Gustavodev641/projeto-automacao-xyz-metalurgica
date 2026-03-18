@@ -37,7 +37,7 @@ export default function Monitoramento_telemetria() {
                 <View>
                     <Text style={GlobalStyle.title}>Temperatura do sensor</Text>
 
-                    <Text style={Style.textTemp}>
+                    <Text style={GlobalStyle.TextGrandao}>
                         {temp}ºc  
                         
                         {/* mudando o ícone com base na temperatura */}

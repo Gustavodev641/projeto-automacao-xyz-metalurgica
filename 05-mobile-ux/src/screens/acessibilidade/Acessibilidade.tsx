@@ -9,8 +9,6 @@ export default function Acessibilidade() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
     const GlobalStyle = getGlobalStyle(settings.fonteGrande);
 
-    
-
     return (
         <SafeAreaView style={[GlobalStyle.mainContainer, Style.body]}>
             <Text style={GlobalStyle.title}>Configurações de acessibilidade</Text>

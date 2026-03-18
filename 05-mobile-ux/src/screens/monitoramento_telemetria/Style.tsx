@@ -13,16 +13,12 @@ const Style = StyleSheet.create({
         padding: spacing.sm,
         gap: 10
     },
-    textTemp: {
-        fontSize: 50,
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-
     viewRegistroTemp: {
         alignItems: "center",
-        gap: 10,
-        marginBottom: 150
+        gap: 25,
+        marginTop: 15,
+        marginBottom: 150,
+        margin: "auto"
     },
 })
 
