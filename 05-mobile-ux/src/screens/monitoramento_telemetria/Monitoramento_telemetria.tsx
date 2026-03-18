@@ -1,16 +1,17 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import GlobalStyle from "../../styles/GlobalStyle";
 import Style from "./Style";
 import { useContext, useState } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
+import getGlobalStyle from "../../styles/GlobalStyle";
 
 export default function Monitoramento_telemetria() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
     const [ temp, setTemp ] = useState(82);
+    const GlobalStyle = getGlobalStyle(settings.fonteGrande);
 
     const tempData = [
         { value: 40 },

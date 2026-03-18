@@ -1,12 +1,15 @@
 import { Text, View, Switch } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import GlobalStyle from "../../styles/GlobalStyle";
 import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
 import { useContext } from "react";
 import Style from "./Style";
+import getGlobalStyle from "../../styles/GlobalStyle";
 
 export default function Acessibilidade() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
+    const GlobalStyle = getGlobalStyle(settings.fonteGrande);
+
+    
 
     return (
         <SafeAreaView style={[GlobalStyle.mainContainer, Style.body]}>
@@ -24,7 +27,7 @@ export default function Acessibilidade() {
                 </View>
                 
                 <View style={Style.viewSwitch}>
-                    <Text style={[GlobalStyle.normalText, Style.textoSwitch]}>habilitar fonte aumentada</Text>
+                    <Text style={[GlobalStyle.normalText, Style.textoSwitch]}>Habilitar fonte aumentada</Text>
                     <Switch
                         value={settings.fonteGrande}
                         onValueChange={(v) =>
