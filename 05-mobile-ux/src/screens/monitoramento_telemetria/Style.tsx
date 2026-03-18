@@ -13,21 +13,6 @@ const Style = StyleSheet.create({
         padding: spacing.sm,
         gap: 10
     },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    subtitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    normalText: {
-        fontSize: 14,
-        fontWeight: "regular",
-        textAlign: "center"
-    },
     textTemp: {
         fontSize: 50,
         fontWeight: "bold",

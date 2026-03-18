@@ -2,33 +2,39 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GlobalStyle from "../../styles/GlobalStyle";
 import Style from "./Style";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
 
 export default function Monitoramento_telemetria() {
+    const { settings, setSettings } = useContext(AcessibilidadeContext);
     const [ temp, setTemp ] = useState(82);
 
     const tempData = [
-        { value: 50 },
+        { value: 40 },
         { value: 80 },
         { value: 65 },
         { value: 90 },
         { value: 70 },
     ];
 
+    // function teste() {
+    //     console.log(settings)
+    // }
+
     return (
         <SafeAreaView style={GlobalStyle.mainContainer}>
             <View style={Style.viewTemp}>
                 <View style={Style.alertView}>
-                    <Text style={Style.subtitle}>Atenção!</Text>
+                    <Text style={GlobalStyle.subtitle}>Atenção!</Text>
 
-                    <Text style={Style.normalText}>A temperatura está muito alta!</Text>
+                    <Text style={GlobalStyle.normalText}>A temperatura está muito alta!</Text>
                 </View>
 
                 <View>
-                    <Text style={Style.title}>Temperatura do sensor</Text>
+                    <Text style={GlobalStyle.title}>Temperatura do sensor</Text>
 
                     <Text style={Style.textTemp}>
                         {temp}ºc  
@@ -47,7 +53,7 @@ export default function Monitoramento_telemetria() {
             </View>
 
             <View style={Style.viewRegistroTemp}>
-                <Text style={Style.title}>Registro de temperaturas</Text>
+                <Text style={GlobalStyle.title}>Registro de temperaturas</Text>
 
                 {/* <View style={Style.graficoTempTemporario}></View> */}
                 <LineChart 
@@ -57,6 +63,10 @@ export default function Monitoramento_telemetria() {
                     hideDataPoints={false}
                 />
             </View>
+
+            {/* <View>
+                <Text onPress={() => teste()}>CLIQUE AQUI</Text>
+            </View> */}
         </SafeAreaView>
     )
 }
