@@ -40,11 +40,11 @@ export default function Monitoramento_telemetria() {
                         {/* mudando o ícone com base na temperatura */}
                         {
                             temp < 50 ? 
-                                (<FontAwesome5 name="temperature-low" size={24} color="black" />) : 
+                                (<FontAwesome5 name="temperature-low" size={24} color={GlobalStyle.TemaTextoPrimario} />) : 
                             temp < 80 ? 
-                                (<FontAwesome6 name="temperature-half" size={24} color="black" />) 
+                                (<FontAwesome6 name="temperature-half" size={24} color={GlobalStyle.TemaTextoPrimario} />) 
                             : 
-                                (<FontAwesome6 name="temperature-arrow-up" size={24} color="black" />)
+                                (<FontAwesome6 name="temperature-arrow-up" size={24} color={GlobalStyle.TemaTextoPrimario} />)
                         }
                     </Text>
                 </View>
