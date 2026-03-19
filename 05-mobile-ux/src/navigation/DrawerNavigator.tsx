@@ -11,6 +11,7 @@ import Acessibilidade from '../screens/acessibilidade/Acessibilidade';
 import { AcessibilidadeContext } from '../contexts/AcessibilidadeContext';
 import { useContext } from 'react';
 import { getDrawerStyle } from '../styles/DrawerStyle';
+import { StatusBar } from 'expo-status-bar';
 
 export const DrawerNavigator = () => {
     const Drawer = createDrawerNavigator();
@@ -19,46 +20,50 @@ export const DrawerNavigator = () => {
 
     return (
         <NavigationContainer>
-        <Drawer.Navigator
-          screenOptions={drawerStyle}
-        >
-          <Drawer.Screen 
-            name='Monitoramento de telemetria'
-            component={Monitoramento_telemetria}
-            options={{
-              drawerIcon: ({ size, color }) => (
-                <FontAwesome6 name="temperature-half" size={size} color={color} />
-              ),
-            }}
-          />
-          <Drawer.Screen 
-            name='Controle e atuadores'
-            component={Controle_atuadores}
-            options={{
-              drawerIcon: ({ size, color }) => (
-                <AntDesign name="control" size={size} color={color} />
-              ),
-            }}
-          />
-          <Drawer.Screen 
-            name='Registro de eventos'
-            component={Registro_de_eventos}
-            options={{
-              drawerIcon: ({ size, color }) => (
-                <FontAwesome5 name="book" size={size} color={color} />
-              ),
-            }}
-          />
-          <Drawer.Screen 
-            name='Acessibilidade'
-            component={Acessibilidade}
-            options={{
-              drawerIcon: ({ size, color }) => (
-                <Ionicons name="accessibility" size={size} color={color} />
-              ),
-            }}
-          />
-        </Drawer.Navigator>
-      </NavigationContainer>
+            <StatusBar 
+                style={settings.altoContraste ? "light" : "dark"}
+            />
+
+            <Drawer.Navigator
+            screenOptions={drawerStyle}
+            >
+                <Drawer.Screen 
+                    name='Monitoramento de telemetria'
+                    component={Monitoramento_telemetria}
+                    options={{
+                    drawerIcon: ({ size, color }) => (
+                        <FontAwesome6 name="temperature-half" size={size} color={color} />
+                    ),
+                    }}
+                />
+                <Drawer.Screen 
+                    name='Controle e atuadores'
+                    component={Controle_atuadores}
+                    options={{
+                    drawerIcon: ({ size, color }) => (
+                        <AntDesign name="control" size={size} color={color} />
+                    ),
+                    }}
+                />
+                <Drawer.Screen 
+                    name='Registro de eventos'
+                    component={Registro_de_eventos}
+                    options={{
+                    drawerIcon: ({ size, color }) => (
+                        <FontAwesome5 name="book" size={size} color={color} />
+                    ),
+                    }}
+                />
+                <Drawer.Screen 
+                    name='Acessibilidade'
+                    component={Acessibilidade}
+                    options={{
+                    drawerIcon: ({ size, color }) => (
+                        <Ionicons name="accessibility" size={size} color={color} />
+                    ),
+                    }}
+                />
+            </Drawer.Navigator>
+        </NavigationContainer>
     )
 }
