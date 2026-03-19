@@ -7,15 +7,15 @@ import getGlobalStyle from "../../styles/GlobalStyle";
 
 export default function Acessibilidade() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
-    const GlobalStyle = getGlobalStyle(settings.fonteGrande);
+    const GlobalStyle = getGlobalStyle(settings.fonteGrande, settings.altoContraste);
 
     return (
-        <SafeAreaView style={[GlobalStyle.mainContainer, Style.body]}>
-            <Text style={GlobalStyle.title}>Configurações de acessibilidade</Text>
+        <SafeAreaView style={[GlobalStyle.mainContainer, Style.body, GlobalStyle.TemaBackground]}>
+            <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Configurações de acessibilidade</Text>
 
             <View>
                 <View style={Style.viewSwitch}>
-                    <Text style={[GlobalStyle.normalText, Style.textoSwitch]}>Habilitar narração</Text>
+                    <Text style={[GlobalStyle.normalText, Style.textoSwitch, GlobalStyle.TemaTextoPrimario]}>Habilitar narração</Text>
                     <Switch
                         value={settings.narracao}
                         onValueChange={(v) =>
@@ -25,7 +25,7 @@ export default function Acessibilidade() {
                 </View>
                 
                 <View style={Style.viewSwitch}>
-                    <Text style={[GlobalStyle.normalText, Style.textoSwitch]}>Habilitar fonte aumentada</Text>
+                    <Text style={[GlobalStyle.normalText, Style.textoSwitch, GlobalStyle.TemaTextoPrimario]}>Habilitar fonte aumentada</Text>
                     <Switch
                         value={settings.fonteGrande}
                         onValueChange={(v) =>
@@ -35,7 +35,7 @@ export default function Acessibilidade() {
                 </View>
                 
                 <View style={Style.viewSwitch}>
-                    <Text style={[GlobalStyle.normalText, Style.textoSwitch]}>Habilitar alto-contraste</Text>
+                    <Text style={[GlobalStyle.normalText, Style.textoSwitch, GlobalStyle.TemaTextoPrimario]}>Habilitar alto-contraste</Text>
                     <Switch
                         value={settings.altoContraste}
                         onValueChange={(v) =>

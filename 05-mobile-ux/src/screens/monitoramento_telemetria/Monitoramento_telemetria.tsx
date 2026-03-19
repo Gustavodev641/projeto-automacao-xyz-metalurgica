@@ -1,17 +1,18 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Style from "./Style";
 import { useContext, useState } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
 import getGlobalStyle from "../../styles/GlobalStyle";
+import { getStyle } from "./Style";
 
 export default function Monitoramento_telemetria() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
     const [ temp, setTemp ] = useState(82);
-    const GlobalStyle = getGlobalStyle(settings.fonteGrande);
+    const GlobalStyle = getGlobalStyle(settings.fonteGrande, settings.altoContraste);
+    const Style = getStyle(settings.altoContraste)
 
     const tempData = [
         { value: 40 },
@@ -21,23 +22,19 @@ export default function Monitoramento_telemetria() {
         { value: 70 },
     ];
 
-    // function teste() {
-    //     console.log(settings)
-    // }
-
     return (
-        <SafeAreaView style={GlobalStyle.mainContainer}>
+        <SafeAreaView style={[GlobalStyle.mainContainer, GlobalStyle.TemaBackground]}>
             <View style={Style.viewTemp}>
-                <View style={Style.alertView}>
-                    <Text style={GlobalStyle.subtitle}>Atenção!</Text>
+                <View style={[Style.alertView, Style.TemaAlerta]}>
+                    <Text style={[GlobalStyle.subtitle, Style.TemaTextoAlert]}>Atenção!</Text>
 
-                    <Text style={GlobalStyle.normalText}>A temperatura está muito alta!</Text>
+                    <Text style={[GlobalStyle.normalText, Style.TemaTextoAlert]}>A temperatura está muito alta!</Text>
                 </View>
 
                 <View>
-                    <Text style={GlobalStyle.title}>Temperatura do sensor</Text>
+                    <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Temperatura do sensor</Text>
 
-                    <Text style={GlobalStyle.TextGrandao}>
+                    <Text style={[GlobalStyle.TextGrandao, GlobalStyle.TemaTextoPrimario]}>
                         {temp}ºc  
                         
                         {/* mudando o ícone com base na temperatura */}
@@ -54,20 +51,23 @@ export default function Monitoramento_telemetria() {
             </View>
 
             <View style={Style.viewRegistroTemp}>
-                <Text style={GlobalStyle.title}>Registro de temperaturas</Text>
+                <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Registro de temperaturas</Text>
 
                 {/* <View style={Style.graficoTempTemporario}></View> */}
                 <LineChart 
                     data={tempData}
-                    thickness={3}
-                    color="blue"
+                    thickness={settings.altoContraste ? 5 : 3}
                     hideDataPoints={false}
+                    color={Style.CorLinhaGrafico.color}
+                    dataPointsColor={Style.CorLinhaGrafico.color}
+                    yAxisTextStyle={Style.CorPrincipalGrafico}
+                    xAxisLabelTextStyle={Style.CorPrincipalGrafico}
+                    rulesColor={Style.CorPrincipalGrafico.color}
+                    verticalLinesColor={Style.CorPrincipalGrafico.color}
+                    yAxisColor={Style.CorPrincipalGrafico.color}
+                    xAxisColor={Style.CorPrincipalGrafico.color}
                 />
             </View>
-
-            {/* <View>
-                <Text onPress={() => teste()}>CLIQUE AQUI</Text>
-            </View> */}
         </SafeAreaView>
     )
 }

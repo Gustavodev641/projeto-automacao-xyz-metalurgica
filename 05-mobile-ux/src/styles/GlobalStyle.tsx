@@ -1,10 +1,24 @@
 import { StyleSheet } from 'react-native';
 import spacing from './Spacing';
 
-export const getGlobalStyle = (fonteGrande:boolean) => {
+const temaNormal = {
+    background: "#FFFFFF",
+    text: "#000000",
+};
+
+const temaAltoContraste = {
+    background: "#000000",
+    text: "#FFFFFF",
+};
+
+export const getGlobalStyle = (fonteGrande:boolean, altoContraste:boolean) => {
     const multiplicadorFonte = fonteGrande ? 1.5 : 1;
 
+    // se "altoContraste" for true, theme = a "temaAltoContraste", se for false, theme = "temaNormal"
+    const theme = altoContraste ? temaAltoContraste : temaNormal;
+
     return StyleSheet.create({
+        // styles de fontes e tamanhos
         mainContainer: {
             paddingLeft: spacing.md,
             paddingRight: spacing.md,
@@ -30,7 +44,15 @@ export const getGlobalStyle = (fonteGrande:boolean) => {
             fontSize: 50 * multiplicadorFonte,
             fontWeight: "bold",
             textAlign: "center"
-        }
+        },
+
+        // styles de tema de cores
+        TemaBackground: {
+            backgroundColor: theme.background
+        },
+        TemaTextoPrimario: {
+            color: theme.text
+        },
     })
 }
 

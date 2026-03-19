@@ -1,10 +1,25 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const AcessibilidadeContext = createContext();
+// configurações de tipagem pq o typescript é boiola
+type AcessibilidadeSettings = {
+    narracao: boolean;
+    fonteGrande: boolean;
+    altoContraste: boolean;
+};
+type AcessibilidadeContextType = {
+    settings: AcessibilidadeSettings;
+    setSettings: React.Dispatch<React.SetStateAction<AcessibilidadeSettings>>;
+};
+export const AcessibilidadeContext = createContext<AcessibilidadeContextType>(
+    {} as AcessibilidadeContextType
+);
+type Props = {
+    children: React.ReactNode;
+};
 
-export const AcessibilidadeProvider = ({ children }) => {
-    const [ settings, setSettings ] = useState({
+export const AcessibilidadeProvider = ({ children }: Props) => {
+    const [ settings, setSettings ] = useState<AcessibilidadeSettings>({
         narracao: false,
         fonteGrande: false,
         altoContraste: false
