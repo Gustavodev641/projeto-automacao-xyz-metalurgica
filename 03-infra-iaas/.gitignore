@@ -1,0 +1,14 @@
+# Ignorar arquivos de ambiente e senhas
+.env
+../.env
+.env*
+
+# Ignorar pastas do Python
+__pycache__/
+venv/
+.venv/
+*.pyc
+
+# Ignorar pastas de editores
+.vscode/
+.idea/
