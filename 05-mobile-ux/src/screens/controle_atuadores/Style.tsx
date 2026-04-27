@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 const temaNormal = {
-    indicadorOperacaoOn: "#ff9500"
+    indicadorOperacaoOn: "#ff9500",
+    btnParada: "#d10000"
 }
 
 const temaAltoContraste = {
-    indicadorOperacaoOn: "#ffea00"
+    indicadorOperacaoOn: "#ffea00",
+    btnParada: "#ff0000"
 }
 
 export const getStyle = (altoContraste: boolean) => {
@@ -28,6 +30,9 @@ export const getStyle = (altoContraste: boolean) => {
         },
         icon_indicador_operacao: {
             color: theme.indicadorOperacaoOn,
+        },
+        btn_parada_emergencia: {
+            color: theme.btnParada
         }
     })
 }

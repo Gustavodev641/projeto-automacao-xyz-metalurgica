@@ -6,6 +6,7 @@ import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
 import { getStyle } from "./Style";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Shadow } from "react-native-shadow-2";
 
 export default function Controle_atuadores() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
@@ -30,7 +31,16 @@ export default function Controle_atuadores() {
 
                 <Text style={[GlobalStyle.TemaTextoPrimario]}>
                     {estadoAtuacao ? (
-                        <MaterialCommunityIcons name="lightbulb-on" size={tamanhoIcons} color={Style.icon_indicador_operacao.color} />
+                        <Shadow
+                            distance={20}
+                            startColor={`${Style.icon_indicador_operacao.color}30`}
+                            endColor={'#00000000'}
+                            offset={[0, 0]}
+                            style={{ borderRadius: 100 }}
+                        >
+                            <MaterialCommunityIcons name="lightbulb-on" size={tamanhoIcons} color={Style.icon_indicador_operacao.color} />
+                        </Shadow>
+                        
                     ) : (
                         <MaterialCommunityIcons name="lightbulb-outline" size={tamanhoIcons} />
                     )}
@@ -42,7 +52,7 @@ export default function Controle_atuadores() {
                     GlobalStyle.TemaTextoPrimario, 
                     estadoAtuacao ? Style.icon_indicador_operacao : ""
                 ]}>
-                    {estadoAtuacao ? "Em operação" : "Fora de operação"}
+                    {estadoAtuacao ? "Em operação..." : "Fora de operação."}
                 </Text>
             </View>
 
@@ -50,7 +60,7 @@ export default function Controle_atuadores() {
                 <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Parada de emergência</Text>
 
                 <TouchableOpacity onPress={() => handleParadaEmergencia()}>
-                    <MaterialIcons name="radio-button-checked" size={tamanhoIcons + 20} color={GlobalStyle.TemaTextoPrimario.color} />
+                    <MaterialIcons name="radio-button-checked" size={tamanhoIcons + 20} color={Style.btn_parada_emergencia.color} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
