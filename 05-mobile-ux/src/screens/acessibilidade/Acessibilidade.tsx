@@ -15,16 +15,6 @@ export default function Acessibilidade() {
 
             <View>
                 <View style={Style.viewSwitch}>
-                    <Text style={[GlobalStyle.normalText, Style.textoSwitch, GlobalStyle.TemaTextoPrimario]}>Habilitar narração</Text>
-                    <Switch
-                        value={settings.narracao}
-                        onValueChange={(v) =>
-                            setSettings({ ...settings, narracao: v })
-                        }
-                    />
-                </View>
-                
-                <View style={Style.viewSwitch}>
                     <Text style={[GlobalStyle.normalText, Style.textoSwitch, GlobalStyle.TemaTextoPrimario]}>Habilitar fonte aumentada</Text>
                     <Switch
                         value={settings.fonteGrande}

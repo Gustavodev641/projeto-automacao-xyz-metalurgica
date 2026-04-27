@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // configurações de tipagem pq o typescript é boiola
 type AcessibilidadeSettings = {
-    narracao: boolean;
     fonteGrande: boolean;
     altoContraste: boolean;
 };
@@ -20,7 +19,6 @@ type Props = {
 
 export const AcessibilidadeProvider = ({ children }: Props) => {
     const [ settings, setSettings ] = useState<AcessibilidadeSettings>({
-        narracao: false,
         fonteGrande: false,
         altoContraste: false
     });

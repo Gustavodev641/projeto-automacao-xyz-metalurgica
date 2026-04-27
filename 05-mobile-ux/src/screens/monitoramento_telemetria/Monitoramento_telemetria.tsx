@@ -10,7 +10,7 @@ import { getStyle } from "./Style";
 
 export default function Monitoramento_telemetria() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
-    const [ temp, setTemp ] = useState(82);
+    const [ temp, setTemp ] = useState(85);
     const GlobalStyle = getGlobalStyle(settings.fonteGrande, settings.altoContraste);
     const Style = getStyle(settings.altoContraste)
 
@@ -25,11 +25,14 @@ export default function Monitoramento_telemetria() {
     return (
         <SafeAreaView style={[GlobalStyle.mainContainer, GlobalStyle.TemaBackground]}>
             <View style={Style.viewTemp}>
-                <View style={[Style.alertView, Style.TemaAlerta]}>
-                    <Text style={[GlobalStyle.subtitle, Style.TemaTextoAlert]}>Atenção!</Text>
+                {temp >= 80 ? (
+                    <View style={[Style.alertView, Style.TemaAlerta]}>
+                        <Text style={[GlobalStyle.subtitle, Style.TemaTextoAlert]}>Atenção!</Text>
 
-                    <Text style={[GlobalStyle.normalText, Style.TemaTextoAlert]}>A temperatura está muito alta!</Text>
-                </View>
+                        <Text style={[GlobalStyle.normalText, Style.TemaTextoAlert]}>A temperatura está muito alta!</Text>
+                    </View>
+                ) : ""}
+                
 
                 <View>
                     <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Temperatura do sensor</Text>
