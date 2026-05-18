@@ -1,53 +1,87 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { AcessibilidadeContext } from "../../contexts/AcessibilidadeContext";
 import getGlobalStyle from "../../styles/GlobalStyle";
 import { getStyle } from "./Style";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Monitoramento_telemetria() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
-    const [ temp, setTemp ] = useState(85);
+    const isFocused = useIsFocused();
     const GlobalStyle = getGlobalStyle(settings.fonteGrande, settings.altoContraste);
     const Style = getStyle(settings.altoContraste)
 
-    const tempData = [
-        { value: 40 },
-        { value: 80 },
-        { value: 65 },
-        { value: 90 },
-        { value: 70 },
-    ];
+    const fetchTempData = async () => {
+        const response = await axios.get(`http://3.20.115.136:8000/dados-brutos`);
+        return response.data;
+    }
+
+    const fetchStatusMaquina = async () => {
+        const response = await axios.get(`http://3.20.115.136:8000/status-maquina`);
+        return response.data;
+    }
+
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["statusMaquina"],
+        queryFn: fetchStatusMaquina,
+        refetchInterval: 5000,
+        refetchIntervalInBackground: false,
+        enabled: isFocused
+    })
+
+    const { data: tempData, isLoading: isLoadingTempData, isError: isErrorTempData } = useQuery({
+        queryKey: ["tempData"],
+        queryFn: fetchTempData,
+        refetchInterval: 5000,
+        refetchIntervalInBackground: false,
+        enabled: isFocused,
+        select: (rawList) => {
+            if (!Array.isArray(rawList)) return [];
+            
+            // traduz a lista que retorna da API para a lista mockada q estava antes
+            return rawList.slice(0, 6).reverse().map(item => ({
+                value: item.current_temperature,
+            }));
+        }
+    })
+
+    const temp = data?.current_temperature ?? 0;
+    const message = data?.operation_type ?? "";
 
     return (
         <SafeAreaView style={[GlobalStyle.mainContainer, GlobalStyle.TemaBackground]}>
             <View style={Style.viewTemp}>
-                {temp >= 80 ? (
+                {temp >= 70 ? (
                     <View style={[Style.alertView, Style.TemaAlerta]}>
                         <Text style={[GlobalStyle.subtitle, Style.TemaTextoAlert]}>Atenção!</Text>
 
-                        <Text style={[GlobalStyle.normalText, Style.TemaTextoAlert]}>A temperatura está muito alta!</Text>
+                        <Text style={[GlobalStyle.normalText, Style.TemaTextoAlert]}>
+                            {isLoading ? "Carregando..." : isError ? "Erro ao carregar os dados" : message}
+                        </Text>
                     </View>
                 ) : ""}
-                
+
 
                 <View>
                     <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Temperatura do sensor</Text>
 
                     <Text style={[GlobalStyle.TextGrandao, GlobalStyle.TemaTextoPrimario]}>
-                        {temp}ºc  
-                        
+                        {isLoading ? "Carregando..." : isError ? "Erro ao carregar os dados" : temp}ºc
+
                         {/* mudando o ícone com base na temperatura */}
                         {
-                            temp < 50 ? 
-                                (<FontAwesome5 name="temperature-low" size={24} color={GlobalStyle.TemaTextoPrimario} />) : 
-                            temp < 80 ? 
-                                (<FontAwesome6 name="temperature-half" size={24} color={GlobalStyle.TemaTextoPrimario} />) 
-                            : 
-                                (<FontAwesome6 name="temperature-arrow-up" size={24} color={GlobalStyle.TemaTextoPrimario} />)
+                            temp < 50 ?
+                                (<FontAwesome5 name="temperature-low" size={24} color={GlobalStyle.TemaTextoPrimario} />) :
+                                temp < 80 ?
+                                    (<FontAwesome6 name="temperature-half" size={24} color={GlobalStyle.TemaTextoPrimario} />)
+                                    :
+                                    (<FontAwesome6 name="temperature-arrow-up" size={24} color={GlobalStyle.TemaTextoPrimario} />)
                         }
                     </Text>
                 </View>
@@ -57,7 +91,7 @@ export default function Monitoramento_telemetria() {
                 <Text style={[GlobalStyle.title, GlobalStyle.TemaTextoPrimario]}>Registro de temperaturas</Text>
 
                 {/* <View style={Style.graficoTempTemporario}></View> */}
-                <LineChart 
+                <LineChart
                     data={tempData}
                     thickness={settings.altoContraste ? 5 : 3}
                     hideDataPoints={false}
@@ -69,6 +103,7 @@ export default function Monitoramento_telemetria() {
                     verticalLinesColor={Style.CorPrincipalGrafico.color}
                     yAxisColor={Style.CorPrincipalGrafico.color}
                     xAxisColor={Style.CorPrincipalGrafico.color}
+                    width={285}
                 />
             </View>
         </SafeAreaView>

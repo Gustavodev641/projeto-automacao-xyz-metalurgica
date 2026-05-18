@@ -37,11 +37,10 @@ export const getStyle = (altoContraste: boolean) => {
             gap: 10
         },
         viewRegistroTemp: {
-            alignItems: "center",
             gap: 25,
             marginTop: 15,
             marginBottom: 150,
-            margin: "auto"
+            // margin: "auto"
         },
         TemaAlerta: {
             borderWidth: theme.borderWitdhAlert,
