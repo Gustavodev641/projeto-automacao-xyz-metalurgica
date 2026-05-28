@@ -7,6 +7,7 @@ import { getStyle } from "./Style";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Shadow } from "react-native-shadow-2";
+import axios from "axios";
 
 export default function Controle_atuadores() {
     const { settings, setSettings } = useContext(AcessibilidadeContext);
@@ -20,8 +21,15 @@ export default function Controle_atuadores() {
     // porém ainda nao está implementado, então vai ficar somente no useState msm
     const [ estadoAtuacao, setEstadoAtuacao] = useState(true);
 
-    const handleParadaEmergencia = () => {
-        console.log("executa a requisição para fazer a parada de emergencia.")
+    const handleParadaEmergencia = async () => {
+        const response = await axios.post("http://3.20.115.136:8000/api/acionar", 
+            {
+                comando: estadoAtuacao ? "desligar" : "ligar",
+                id_machine: 1 
+            }
+        )
+
+        setEstadoAtuacao(response.data.payload.comando === "ligar" ? true : false);
     }
 
     return (
